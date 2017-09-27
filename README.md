@@ -2,8 +2,13 @@
 Telegram bot in Racket
 
 Build
-~/build.sh
+
+$ build.sh
+
 Run
-~/build.sh run
+
+$ build.sh run
+
 Attach to console
-~/build.sh bash
+
+$ build.sh bash

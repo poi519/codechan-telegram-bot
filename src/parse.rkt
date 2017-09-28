@@ -1,10 +1,9 @@
 #lang racket/base
 
-(require racket/list)
+(provide parse)
 
-(require "commands.rkt")
-
-(provide (all-defined-out))
+(require "commands.rkt"
+         "telegram.rkt")
 
 (define (parse update)
   (define text (get-text update))
@@ -15,21 +14,3 @@
 
 (define (is-ping? text)
   (regexp-match #px"^(?i:Сырна (пинг|ping))($|[\\s])" text))
-
-;;; These functions should be moved somewhere else
-
-(define (hash-get-path h path)
-  (cond
-    [(empty? path) h]
-    [(not (hash? h)) #f]
-    [(hash-has-key? h (first path)) (hash-get-path (hash-ref h (first path))
-                                                   (rest path))]
-    [else #f]))
-
-(define (get-chat-id update)
-  (hash-get-path update '(message chat id)))
-
-(define (get-text update)
-  (hash-get-path update '(message text)))
-
-

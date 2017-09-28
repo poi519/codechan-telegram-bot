@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require "telegram.rkt")
+(provide pong)
 
-(provide (all-defined-out))
+(require "telegram.rkt")
 
 (define (pong chat-id)
   (λ (token db)

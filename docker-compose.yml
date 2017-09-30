@@ -1,0 +1,12 @@
+version: "3"
+services:
+  worker:
+    image: s/racket-cirno-bot:0.2
+    networks:
+      - local
+  db:
+    image: mongo:3
+    networks:
+      - local
+networks:
+  local:

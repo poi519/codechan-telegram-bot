@@ -17,6 +17,8 @@ RUN mkdir ~/tmp && cd ~/tmp && \
 RUN ~/bin/raco setup
 RUN ~/bin/raco pkg config --set catalogs "https://download.racket-lang.org/releases/$RACKET_VERSION/catalog/" "https://pkg-build.racket-lang.org/server/built/catalog/" "https://pkgs.racket-lang.org" "https://planet-compats.racket-lang.org"
 
+RUN ~/bin/raco pkg install --auto mongodb 
+
 ADD . /app
 
 CMD ["/home/winner/bin/racket", "/app/src/main.rkt"]

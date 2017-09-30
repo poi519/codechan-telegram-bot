@@ -5,4 +5,4 @@
 
 (define cirno (bot token #f))
 
-(thread (λ () (start-loop cirno)))
+(start-loop cirno)

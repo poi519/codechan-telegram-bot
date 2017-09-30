@@ -9,7 +9,7 @@ then
   docker build -f Dockerfile -t $CONTAINER_NAME --build-arg RACKET_INSTALLER_URL=$URL --build-arg RACKET_VERSION=$VER .;
 elif [ "$1" = "run" ]
 then
-  docker run $CONTAINER_NAME
+  docker-compose up
 elif [ "$1" = "bash" ]
 then
   docker run -i -t  $CONTAINER_NAME /bin/bash

@@ -1,8 +1,11 @@
 #lang racket/base
 
 (require "settings.rkt"
-         "bot.rkt")
+         "bot.rkt"
+         "db.rkt")
 
-(define cirno (bot token #f))
+(define db (db-init))
+
+(define cirno (bot token db))
 
 (start-loop cirno)

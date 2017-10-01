@@ -7,6 +7,8 @@
          get-latest-update-id
          get-chat-id
          get-text
+         get-mentions
+         get-mentioned-usernames
          make-message)
 
 (require "utils.rkt")
@@ -59,6 +61,22 @@
 
 (define (get-text update)
   (hash-get-path update '(message text)))
+
+(define (get-mentions update)
+  (define entities (hash-get-path update '(message entities)))
+  (if entities
+      (filter (λ (entity)
+                (equal? (hash-ref entity 'type) "mention"))
+              entities)
+      '()))
+
+(define (get-mentioned-usernames update)
+  (define text (get-text update))
+  (map (λ (mention)
+         (define offset (hash-ref mention 'offset))
+         (define length (hash-ref mention 'length))
+         (substring text offset (+ offset length)))
+       (get-mentions update)))
 
 ;; Message
 (define (make-message recipient message)

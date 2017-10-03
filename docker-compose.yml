@@ -2,6 +2,8 @@ version: "3"
 services:
   worker:
     image: s/racket-cirno-bot:0.2
+    depends_on:
+      - db
     networks:
       - local
   db:

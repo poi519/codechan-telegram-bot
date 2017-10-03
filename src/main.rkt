@@ -4,7 +4,7 @@
          "bot.rkt"
          "db.rkt")
 
-(define db (db-init))
+(define db (db-init db-host db-port))
 
 (define cirno (bot token db))
 

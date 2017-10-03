@@ -12,8 +12,8 @@
          racket/sequence
          racket/list)
 
-(define (db-init)
-  (define m (create-mongo))
+(define (db-init host port)
+  (define m (create-mongo #:host host #:port port))
   (define db (make-mongo-db m "cirno-telegram-bot"))
   (current-mongo-db db)
   db)

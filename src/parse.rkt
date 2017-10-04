@@ -14,7 +14,9 @@
     [(is-ping? text) (pong (get-chat-id update))]
     [(is-db-up? text) (db-test (get-chat-id update))]
     [(is-lois? update) (lois update)]
+    [(is-zashquor? update) (zashquor update)]
     [(is-top? text) (top (get-chat-id update))]
+   
     [else (displayln update)
           #f]))
 
@@ -27,11 +29,20 @@
 (define (contains-lois? text)
   (regexp-match #px"(?i:(^|[\\s])(лойс|lois)($|[\\s]))" text))
 
+(define (contains-zashquor? text)
+  (regexp-match #px"(?i:(^|[\\s])(зашквор|зашквар|zashkvor|zashquor|zashkvar|zashquar)($|[\\s]))" text))
+
 (define lois-allowed-chats '(-1001120821314))
 
 (define (is-lois? update)
+  (lois-zashquor? update contains-lois?))
+
+(define (is-zashquor? update)
+  (lois-zashquor? update contains-zashquor?))
+
+(define (lois-zashquor? update text-predicate?)
   (and (member (get-chat-id update) lois-allowed-chats)
-       (contains-lois? (get-text update))
+       (text-predicate? (get-text update))
        (not (empty? (get-mentions update)))))
 
 (define (is-top? text)

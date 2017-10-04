@@ -75,7 +75,7 @@
   (map (λ (mention)
          (define offset (hash-ref mention 'offset))
          (define length (hash-ref mention 'length))
-         (substring text offset (+ offset length)))
+         (substring text (add1 offset) (+ offset length)))
        (get-mentions update)))
 
 ;; Message

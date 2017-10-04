@@ -6,7 +6,10 @@
          get-all-stats
          stats-user
          stats-lois
-         inc-stats-lois!)
+         stats-zashquor
+         inc-stats-lois!
+         inc-stats-zashquor!
+         score)
 
 (require db/mongodb
          racket/sequence
@@ -25,14 +28,16 @@
 
 (define-mongo-struct stats "stats"
   ([user #:required]
-   [lois #:inc]))
+   [lois #:inc]
+   [zashquor #:inc]))
 
 (define (get-user-stats username)
   (define data (sequence->list
                 (mongo-dict-query "stats" `#hasheq((user . ,username)))))
   (if (empty? data)
       (make-stats #:user username
-                  #:lois 0)
+                  #:lois 0
+                  #:zashquor 0)
       (first data)))
 
 (define (get-all-stats)
@@ -41,3 +46,7 @@
 (define (db-status db)
   (hash-has-key? (mongo-db-execute-command! db '((ping . 1)))
                  'ok))
+
+(define (score stats)
+  (- (* 1488 (stats-lois stats))
+     (* 1000 (stats-zashquor stats))))

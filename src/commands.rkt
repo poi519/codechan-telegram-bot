@@ -38,8 +38,10 @@
     (displayln update)
     (define from (hash-get-path update '(message from username)))
     (define username (first (get-mentioned-usernames update)))
+    (displayln from)
+    (displayln username)
     (cond
-      [(equal? (substring username 1) from)
+      [(equal? username from)
        (send-message token
                   (get-chat-id update)
                   cannot-do-message)]

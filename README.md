@@ -1,6 +1,8 @@
 # codechan-telegram-bot
 Telegram bot in Racket
 
+Documentation deprecated
+
 Build
 
 $ build.sh

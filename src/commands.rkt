@@ -10,7 +10,7 @@
          racket/string)
 
 (require "telegram.rkt"
-         "db.rkt"
+         "db-sqlite.rkt"
          "utils.rkt")
 
 (define (pong chat-id)
@@ -41,20 +41,28 @@
     (displayln from)
     (displayln username)
     (cond
+      [(not (member from loisers)) 
+       (send-message token
+                      (get-chat-id update)
+                      "Ты не можешь влиять на лойсо-зашкварные характеристики участников")]
       [(equal? username from)
        (send-message token
                   (get-chat-id update)
                   cannot-do-message)]
       [else
-       (define user-stats (get-user-stats username))
-       (inc-function! user-stats)
+       (inc-function! db username)
        (send-message token
                      (get-chat-id update)
                      success-message)])))
 
+;;; Hardcode for now
+(define loisers
+ '("quasipoi" "stdray" "A72A9B1A7446E5A4977EFFE3B5759C" "volchique" "sdfyu89sadhuaod1" "lenzlenz123"
+  "memessiah" "tgnl0" "mike_123"))
+
 (define (top chat-id)
   (λ (token db)
-    (define data (get-all-stats))
+    (define data (get-all-stats db))
     (define lines
       (map (λ (stats)
              (format "~a лойсы: ~a зашкворы: ~a"

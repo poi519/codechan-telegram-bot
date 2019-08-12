@@ -2,3 +2,4 @@ src/compiled/*
 *.bak
 *~
 settings.rkt
+codechan.sqlite3

@@ -2,9 +2,9 @@
 
 (require "settings.rkt"
          "bot.rkt"
-         "db.rkt")
+         "db-sqlite.rkt")
 
-(define db (db-init db-host db-port))
+(define db (db-init))
 
 (define cirno (bot token db))
 

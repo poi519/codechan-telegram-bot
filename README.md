@@ -1,16 +1,10 @@
 # codechan-telegram-bot
 Telegram bot in Racket
 
-Documentation deprecated
-
 Build
 
-$ build.sh
+$ raco make main.rkt
 
 Run
 
-$ build.sh run
-
-Attach to console
-
-$ build.sh bash
+$ racket main.rkt

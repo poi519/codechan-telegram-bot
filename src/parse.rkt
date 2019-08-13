@@ -5,7 +5,8 @@
 (require racket/list)
 
 (require "commands.rkt"
-         "telegram.rkt")
+         "telegram.rkt"
+         "utils.rkt")
 
 (define (parse update)
   (define text (get-text update))
@@ -43,7 +44,8 @@
 (define (lois-zashquor? update text-predicate?)
   (and (member (get-chat-id update) lois-allowed-chats)
        (text-predicate? (get-text update))
-       (not (empty? (get-mentions update)))))
+       (or (not (empty? (get-mentions update)))
+           (hash-get-path update '(message reply_to_message)))))
 
 (define (is-top? text)
   (regexp-match #px"^(?i:Сырна (топ|top))($|[\\s])" text))

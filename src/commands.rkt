@@ -37,7 +37,14 @@
   (λ (token db)
     (displayln update)
     (define from (hash-get-path update '(message from username)))
-    (define username (first (get-mentioned-usernames update)))
+
+    (define mentioned-usernames (get-mentioned-usernames update))
+    
+    (define username
+      (if (empty? mentioned-usernames)
+          (hash-get-path update '(message reply_to_message from username))
+          (first (get-mentioned-usernames update))))
+      
     (displayln from)
     (displayln username)
     (cond

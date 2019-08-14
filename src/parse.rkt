@@ -11,7 +11,8 @@
 (define (parse update)
   (define text (get-text update))
   (cond
-    [(not text) #f]
+    [(not text) (displayln update)
+                #f]
     [(is-ping? text) (pong (get-chat-id update))]
     [(is-db-up? text) (db-test (get-chat-id update))]
     [(is-lois? update) (lois update)]

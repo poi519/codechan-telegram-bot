@@ -19,23 +19,25 @@
 
 (define (loop bot update-id)
   (sleep 0.1)
-
+  
+  (define next-update-id update-id)
+  
   (with-handlers ([exn:fail?
                    (λ (e)
-                     (displayln e)
-                     (loop bot update-id))])
+                     (displayln e))])
     (define token (bot-token bot))
   
     (define updates-obj (get-updates token update-id))
     (define updates (hash-ref updates-obj 'result))
+    (set! next-update-id (get-next-update-id updates-obj update-id))
 
     (unless (empty? updates)
       (for ([update updates])
         (define command (parse update))
         (when command 
-          (execute bot command))))
+          (execute bot command)))))
 
-    (loop bot (get-next-update-id updates-obj update-id))))
+    (loop bot next-update-id))
   
 
 (define (get-initial-update-id bot)

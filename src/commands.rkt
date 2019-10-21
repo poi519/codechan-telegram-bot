@@ -64,7 +64,7 @@
 
 ;;; Hardcode for now
 (define loisers
- '("quasipoi" "stdray" "A72A9B1A7446E5A4977EFFE3B5759C" "volchique" "sdfyu89sadhuaod1" "lenzlenz123"
+ '("quasipoi" "stdray" "A72A9B1A7446E5A4977EFFE3B5759C" "volchique" "sdf9123" "lenzlenz123"
   "kartofell_god" "tgnl0" "mike_123" "deadalivee"))
 
 (define (top chat-id)
